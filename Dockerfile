@@ -90,10 +90,8 @@ COPY --from=builder "$WORKDIR/giftless" "giftless"
 
 # Set runtime properties
 USER $USER_NAME
-ENV GIFTLESS_TRANSFER_ADAPTERS_basic_options_storage_options_path="$STORAGE_DIR"
-ENV UWSGI_MODULE="giftless.wsgi_entrypoint"
 
-CMD ["/app/.venv/bin/uwsgi", "-s", "127.0.0.1:8080", "-M", "-T", "--threads", "2", "-p", "2", \
+CMD ["/app/.venv/bin/uwsgi", "--module", "giftless.wsgi_entrypoint", "-s", "127.0.0.1:8080", "-M", "-T", "--threads", "2", "-p", "2", \
      "--manage-script-name", "--callable", "app"]
 
 # TODO remove this STOPSIGNAL override after uwsgi>=2.1
