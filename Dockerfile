@@ -41,8 +41,8 @@ RUN uv venv "$VENV"
 ENV VIRTUAL_ENV="$VENV" PATH="$VENV/bin:$PATH"
 
 # Install runtime dependencies
-RUN --mount=target=/build-ctx \
-    uv pip install -r /build-ctx/requirements/main.txt
+COPY requirements/main.txt /tmp/requirements.txt
+RUN uv pip install -r /tmp/requirements.txt
 RUN uv pip install uwsgi==$UWSGI_VERSION
 # Install extra packages into the virtual env
 RUN uv pip install ${EXTRA_PACKAGES}
