@@ -93,8 +93,8 @@ USER $USER_NAME
 ENV GIFTLESS_TRANSFER_ADAPTERS_basic_options_storage_options_path="$STORAGE_DIR"
 ENV UWSGI_MODULE="giftless.wsgi_entrypoint"
 
-ENTRYPOINT ["tini", "--", "uwsgi"]
-CMD ["-s", "127.0.0.1:5000", "-M", "-T", "--threads", "2", "-p", "2", \
+ENTRYPOINT ["/app/.venv/bin/uwsgi"]
+CMD ["-s", "127.0.0.1:8080", "-M", "-T", "--threads", "2", "-p", "2", \
      "--manage-script-name", "--callable", "app"]
 
 # TODO remove this STOPSIGNAL override after uwsgi>=2.1
